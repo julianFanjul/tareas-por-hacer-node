@@ -1,56 +1,43 @@
-// 28- inicio del proyecto
-// 31- recibir informacion de la linea de comando
-// https://nodejs.org/dist/latest-v15.x/docs/api/fs.html#fs_fs_writefile_file_data_options_callback
-// crear archivos en el sistema 
-//importar modulos
+// 41 - inicio del proyecto - por hacer - tareas pendientes
+// 43- 
 
 const argv = require('./config/yargs').argv;
-const colors = require('colors/safe');
-
-const { crearArchivo, listarTabla } = require('./multiplicar/multiplicar');
-
+const colors = require('colors');
+const porHacer = require('./por-hacer/por-hacer');
 
 let comando = argv._[0];
 
-switch (comando) {
-    case 'listar':
-        console.log('listar');
-        listarTabla(argv.base, argv.limite);
-
-        break;
-    case 'crear':
-        console.log('crear');
-        crearArchivo(argv.base, argv.limite)
-            .then(archivo => console.log(`archivo creado:`, colors.green(archivo)))
-            .catch(e => console.log(e));
-        break;
-    default:
-        console.log('comando no reconocido');
-}
-
 console.log(argv);
 
-//let base = 6;s
+switch (comando) {
+    case 'crear':
+        let tarea = porHacer.crear(argv.descripcion);
+        console.log(tarea);
+        break;
+    case 'listar':
+        let listado = porHacer.getListado();
+        for (let tarea of listado) {
+            console.log('=======por Hacer========='.green);
+            console.log(tarea.descripcion);
+            console.log('estado: ', tarea.completado);
+            console.log('================'.green);
+        }
+        console.log('mostrar las tareas por hacer');
+        break;
+    case 'actualizar':
 
-//console.log(process.argv);
-/*
-let argv2 = process.argv;*/
+        let actualizado = porHacer.actualizar(argv.descripcion, argv.completado);
+        console.log(actualizado);
+        break;
+    case 'borrar':
+        let borrado = porHacer.borrar(argv.descripcion);
+        console.log(borrado);
+        break;
 
-/*console.log(argv.base);
-console.log('limite ' + argv.limite);*/
-
-
-
-/*let parametro = argv[2];
-let base = parametro.split('=')[1];*/
-
-
-//console.log(base);
-
-/*
-crearArchivo(base)
-    .then(archivo => console.log(`archivo creado: ${ archivo }`))
-    .catch(e => console.log(e));*/
+    default:
+        console.log('comando no es reconocido');
+        break;
+}
 
 
 

@@ -1,21 +1,34 @@
 //35 - optimizaciones para la configuracion del yargs
 
+const descripcion = {
+    demand: true,
+    alias: 'd',
+    desc: 'Descripcion de la tarea por hacer'
+};
 
-const opts = {
-    base: {
-        demand: true,
-        alias: 'b'
-    },
-    limite: {
-        alias: 'l',
-        default: 10
-    }
+const completado = {
+    default: true,
+    alias: 'c',
+    desc: 'Marca como completado o pendiente la tarea'
 }
 
+const opts1 = {
+    descripcion
+}
+
+const opts2 = {
+    descripcion,
+    completado
+}
+
+const borrarDeLaDB = {
+    descripcion
+}
 
 const argv = require('yargs')
-    .command('listar', 'imprime en consola la tabla de multiplicar', opts)
-    .command('crear', 'genera un archivo con la tabla de multiplicar', opts)
+    .command('crear', 'crear un elemento por hacer', opts1)
+    .command('actualizar', 'actualiza el estado completado de una tarea', opts2)
+    .command('borrar', 'borra una tarea', borrarDeLaDB)
     .help()
     .argv;
 
