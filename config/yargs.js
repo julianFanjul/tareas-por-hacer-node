@@ -14,7 +14,7 @@ const opts = {
 
 
 const argv = require('yargs')
-    .command('listar', 'imprime en consola la table de multiplicar', opts)
+    .command('listar', 'imprime en consola la tabla de multiplicar', opts)
     .command('crear', 'genera un archivo con la tabla de multiplicar', opts)
     .help()
     .argv;
